@@ -1,0 +1,14 @@
+{
+  "name": "service-templates",
+  "main": "index.ts",
+  "devDependencies": {
+    "@types/node": "^16.18.23",
+    "@types/nunjucks": "^3.2.2",
+    "@types/yargs": "^17.0.24",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "nunjucks": "^3.2.4",
+    "yargs": "^17.7.1"
+  }
+}

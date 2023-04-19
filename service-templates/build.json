@@ -1,0 +1,9 @@
+{
+  "ServiceName": "my-shiny-app",
+  "ServiceType": "frontend",
+  "Dockerfile": {
+    "InstallCommand": "pnpm install",
+    "PreInstallCommands": ["COPY myfile myfile2"],
+    "PostInstallCommands": ["COPY dist anotherFolder"]
+  }
+}

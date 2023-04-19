@@ -16,7 +16,6 @@ export class FmFrontend extends ComponentResource {
     new FmBucket(
       {
         name,
-        environment: "dev",
         product,
         public: true,
       },
@@ -26,7 +25,6 @@ export class FmFrontend extends ComponentResource {
     new FmBucket(
       {
         name: `${name}-replica`,
-        environment: "dev",
         product,
       },
       { parent: this }

@@ -1,5 +1,6 @@
 // import { FmBucket } from "./resources/bucket";
 import { FmFrontend } from "./services/frontend";
+import { FmBackend } from "./services/backend";
 
 function main() {
   // const buckets: { name: string; product: string }[] = [
@@ -20,6 +21,11 @@ function main() {
   //     product: bucket.product,
   //   });
   // }
+
+  new FmBackend({
+    name: "backend",
+    product: "acme-product",
+  });
 
   new FmFrontend({
     name: "frontend",

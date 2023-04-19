@@ -7,7 +7,6 @@ import { s3 } from "@pulumi/aws";
 
 type FmBucketArgs = {
   name: string;
-  environment: string;
   product: string;
   public?: boolean;
 };
@@ -25,17 +24,34 @@ export class FmBucket extends ComponentResource {
     const stack = getStack();
     const bucketName = `${resourceName}-${stack}`;
 
-    const bucket = new s3.Bucket(
-      args.name,
-      {
-        acl: "private",
-        bucket: bucketName,
-        tags: {
-          Environment: "Dev",
-        },
+    let bucketArgs: s3.BucketArgs = {
+      acl: "private",
+      bucket: bucketName,
+      tags: {
+        Environment: stack,
       },
-      { parent: this }
-    );
+    };
+
+    if (isPublic) {
+      bucketArgs = {
+        ...bucketArgs,
+        acl: "public-read",
+        website: {
+          indexDocument: "index.html",
+          errorDocument: "error.html",
+          routingRules: `[{
+            "Condition": {
+              "KeyPrefixEquals": "docs/"
+            },
+            "Redirect": {
+              "ReplaceKeyPrefixWith": "docs/latest/"
+            }
+          }]`,
+        },
+      };
+    }
+
+    const bucket = new s3.Bucket(args.name, bucketArgs, { parent: this });
 
     if (isPublic) {
       new s3.BucketPublicAccessBlock(
